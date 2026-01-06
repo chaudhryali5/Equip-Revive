@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast';
 import { LOGIN_URL, GOOGLE_AUTH_URL } from '@/assets/api';
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ const Login = () => {
                 localStorage.setItem("userToken", response.data.token);
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 toast.success(response.data.message || "Welcome back!");
+                reset();
                 navigate("/");
             } else {
                 toast.error(response.data.message || "Invalid credentials");
@@ -47,6 +48,7 @@ const Login = () => {
                         localStorage.setItem("user", JSON.stringify(res.data.user));
                     }
                     toast.success("Logged in with Google!");
+                    reset();
                     navigate("/");
                 } else {
                     toast.error(res.data.message || "Google login failed");

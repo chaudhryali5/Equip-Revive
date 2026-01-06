@@ -11,14 +11,15 @@ import Footer from '@/components/footer/Footer';
 
 const Profile = () => {
     const navigate = useNavigate();
-    const [user] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const userString = localStorage.getItem("user");
         const token = localStorage.getItem("userToken");
         if (userString && token) {
             try {
-                JSON.parse(userString);
+                const user = JSON.parse(userString);
+                setUser(user);
             } catch (error) {
                 console.error("Error parsing user data:", error);
                 localStorage.removeItem("user");

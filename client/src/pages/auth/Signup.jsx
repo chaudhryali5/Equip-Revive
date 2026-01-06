@@ -13,6 +13,7 @@ const Signup = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm();
 
@@ -34,6 +35,7 @@ const Signup = () => {
                 localStorage.setItem('userToken', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 toast.success(response.data.message || 'Account created successfully!');
+                reset();
                 navigate('/');
             }
             else {
@@ -84,6 +86,7 @@ const Signup = () => {
                                     placeholder="John Doe"
                                     className="pl-10 h-11"
                                     disabled={isLoading}
+                                    autoComplete="name"
                                     {...register('name', { required: 'Name is required' })}
                                 />
                             </div>
@@ -100,6 +103,7 @@ const Signup = () => {
                                     placeholder="name@example.com"
                                     className="pl-10 h-11"
                                     disabled={isLoading}
+                                    autoComplete="email"
                                     {...register('email', {
                                         required: 'Email is required',
                                         pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' },
@@ -119,6 +123,7 @@ const Signup = () => {
                                     placeholder="••••••••"
                                     className="pl-10 h-11"
                                     disabled={isLoading}
+                                    autoComplete="new-password"
                                     {...register('password', {
                                         required: 'Password is required',
                                         minLength: { value: 6, message: 'Password must be at least 6 characters' },
