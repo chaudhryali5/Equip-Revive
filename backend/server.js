@@ -25,7 +25,7 @@ app.use(PREFIX, userRouter);
 app.use(PREFIX, googleRouter);
 app.use(PREFIX, contactRouter);
 app.use(PREFIX, serviceRouter);
-app.use(PREFIX,orderRouter)
+app.use(PREFIX, orderRouter)
 
 app.get('/', (req, res) => {
     res.send("hello from server")
@@ -33,6 +33,10 @@ app.get('/', (req, res) => {
 
 connectdb();
 
-app.listen(PORT, () => {
-    console.log(`server is running at http://localhost:${PORT}`);
-})
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`server is running at http://localhost:${PORT}`);
+    })
+}
+
+export default app;
