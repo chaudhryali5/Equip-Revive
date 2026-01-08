@@ -119,13 +119,13 @@ const Profile = () => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="p-6 rounded-2xl bg-zinc-50/50 hover:bg-zinc-50 border border-zinc-100 transition-colors flex items-center gap-5">
-                                    <div className={`h-12 w-12 rounded-xl flex items-center justify-center transition-colors ${user.isAccountVerified ? 'bg-blue-50 text-blue-600 ring-1 ring-blue-100' : 'bg-yellow-50 text-yellow-600 ring-1 ring-yellow-100'}`}>
+                                    <div className={`h-12 w-12 rounded-xl flex items-center justify-center transition-colors ${user.isAccountVerified === false ? 'bg-yellow-50 text-yellow-600 ring-1 ring-yellow-100' : 'bg-blue-50 text-blue-600 ring-1 ring-blue-100'}`}>
                                         <MdOutlineShield className="h-6 w-6" />
                                     </div>
                                     <div>
                                         <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-0.5">Account Status</p>
-                                        <p className={`font-bold text-lg ${user.isAccountVerified ? 'text-blue-700' : 'text-yellow-700'}`}>
-                                            {user.isAccountVerified ? "Verified" : "Unverified"}
+                                        <p className={`font-bold text-lg ${user.isAccountVerified === false ? 'text-yellow-700' : 'text-blue-700'}`}>
+                                            {user.isAccountVerified === false ? "Unverified" : "Verified"}
                                         </p>
                                     </div>
                                 </div>

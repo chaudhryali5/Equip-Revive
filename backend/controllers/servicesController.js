@@ -3,30 +3,30 @@ import { cloudinary } from "../config/cloudinary.js";
 
 export const addService = async (req, res) => {
     if (!req.file) {
-        return res.json({ status: false, message: "Please upload a file!" })
+        return res.send({ status: false, message: "Please upload a file!" })
     }
 
     try {
-        const { name, price, description, category } = req.body;
+        const serviceData = req.body;
         const image_filename = req.file.path;
 
         console.log("Image uploaded to Cloudinary:", image_filename);
 
         const service = new Services({
-            name,
-            price,
-            description,
-            category,
+            name: serviceData.name,
+            price: serviceData.price,
+            description: serviceData.description,
+            category: serviceData.category,
             image: image_filename
         });
 
         await service.save();
         console.log("Service saved successfully:", service);
-        res.json({ status: true, message: "Service added successfully!" })
+        res.send({ status: true, message: "Service added successfully!" })
 
     } catch (error) {
         console.log("Error adding service:", error);
-        res.json({ status: false, message: error.message })
+        res.send({ status: false, message: error.message })
     }
 }
 

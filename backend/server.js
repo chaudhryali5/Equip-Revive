@@ -39,4 +39,13 @@ if (!process.env.VERCEL) {
     })
 }
 
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error("GLOBAL ERROR HANDLER:", err);
+    res.status(err.status || 500).json({
+        status: false,
+        message: err.message || "Internal Server Error"
+    });
+});
+
 export default app;

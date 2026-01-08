@@ -9,11 +9,15 @@ const googleScehma = mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    },image:{
+    },
+    image: {
         type: String,
         required: true
+    },
+    isAccountVerified: {
+        type: Boolean,
+        default: true
     }
-    
 });
 
 const googleUser = mongoose.model('googleUser', googleScehma);

@@ -23,7 +23,7 @@ export const googleLogin = async (req, res) => {
         const { id } = user;
         const token = jwt.sign({ userId: id, useremail: email }, process.env.JWT_SECRET, { expiresIn: "7d" })
         if (token) {
-            return res.send({ status: true, message: "User loggedin successful", token, user })
+            return res.send({ status: true, message: "User loggedin successful", token, user: { ...user._doc, isAccountVerified: user.isAccountVerified || true } })
         } else {
             return res.send({ status: false, message: "Logging failed" })
         }
