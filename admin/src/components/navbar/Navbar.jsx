@@ -13,7 +13,7 @@ const Navbar = ({ toggleSidebar }) => {
         localStorage.removeItem("adminToken");
         setToken("");
         toast.success("Logged out successfully");
-        window.location.href = import.meta.env.VITE_FRONTEND_URL;
+        window.location.href = "http://localhost:5173";
     }
 
     return (
