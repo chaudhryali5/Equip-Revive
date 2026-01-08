@@ -23,6 +23,7 @@ const Router = () => {
                 <div className="text-center p-8 bg-white rounded-lg shadow-md">
                     <h1 className="text-2xl font-bold text-red-600 mb-4">Access Denied</h1>
                     <p className="text-gray-600 mb-4">Please login through the main website.</p>
+                    <button onClick={() => window.location.href = "http://localhost:5173/admin"}>Login Please</button>
                 </div>
             </div>
         )
