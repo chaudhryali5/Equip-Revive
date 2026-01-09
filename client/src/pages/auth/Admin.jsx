@@ -19,7 +19,7 @@ const Admin = () => {
                 toast.success(response.data.message || "Admin Login Successfully")
                 setTimeout(() => {
                     const token = response.data.token
-                    window.location.href = `http://localhost:5174?token=${token}`
+                    window.location.href = `https://equip-revive-admin.vercel.app?token=${token}`
                 }, 1000)
             } else {
                 toast.error(response.data.message || "You are not authorized")

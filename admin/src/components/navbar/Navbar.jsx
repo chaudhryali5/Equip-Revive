@@ -13,7 +13,7 @@ const Navbar = ({ toggleSidebar }) => {
         localStorage.removeItem("adminToken");
         setToken("");
         toast.success("Logged out successfully");
-        window.location.href = "http://localhost:5173";
+        window.location.href = "https://equip-revive-frontend.vercel.app";
     }
 
     return (
