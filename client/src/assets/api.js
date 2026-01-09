@@ -4,7 +4,6 @@ export const BASE_URL = import.meta.env.VITE_API_URL + "/api/v1";
 
 export const LOGIN_URL = BASE_URL + "/login";
 export const GOOGLE_AUTH_URL = BASE_URL + "/google/login";
-export const ADMIN_LOGIN_URL = BASE_URL + "/admin";
 export const REGISTER_URL = BASE_URL + "/register";
 export const CONTACT_URL = BASE_URL + "/contact";
 

@@ -6,3 +6,4 @@ export const ORDER_URI = BASE_URL + "/api/v1/orders"
 export const DELETE_SERVICE = BASE_URL + "/api/v1/removeService/:id"
 export const UPDATE_STATUS=BASE_URL+"/api/v1/update-status/:id"
 export const USER_ORDER=BASE_URL+"/api/v1/order-list"
+export const ADMIN_LOGIN_URL = BASE_URL + "/api/v1/admin";

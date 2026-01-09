@@ -81,7 +81,7 @@ const AddService = () => {
     return (
         <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
             <div className="max-w-full sm:max-w-xl md:max-w-2xl mx-auto">
-                {/* Header Section */}
+
                 <div className="mb-6 text-center sm:text-left">
                     <h1 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
                         Add New Service
@@ -90,8 +90,6 @@ const AddService = () => {
                         Create and publish a new service to your catalog
                     </p>
                 </div>
-
-                {/* Main Form Card */}
                 <Card className="shadow-md border-slate-200">
                     <CardHeader className="border-b border-slate-100 pb-4">
                         <CardTitle className="text-lg sm:text-xl font-semibold text-slate-800">
@@ -101,7 +99,6 @@ const AddService = () => {
 
                     <CardContent className="pt-6">
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                            {/* Image Upload Section */}
                             <div className="space-y-2">
                                 <Label htmlFor="image-input" className="text-slate-700 font-medium flex items-center gap-2 text-sm">
                                     <FiImage className="w-4 h-4" />
@@ -163,7 +160,6 @@ const AddService = () => {
                                 )}
                             </div>
 
-                            {/* Service Name */}
                             <div className="space-y-2">
                                 <Label htmlFor="name" className="text-slate-700 font-medium flex items-center gap-2 text-sm">
                                     <FiPackage className="w-4 h-4" />
@@ -183,9 +179,7 @@ const AddService = () => {
                                 )}
                             </div>
 
-                            {/* Price and Category Row */}
                             <div className="flex flex-col sm:flex-row sm:gap-4 gap-3">
-                                {/* Price Range */}
                                 <div className="w-full space-y-2">
                                     <Label htmlFor="price" className="text-slate-700 font-medium flex items-center gap-2 text-sm">
                                         <FiDollarSign className="w-4 h-4" />
@@ -206,7 +200,6 @@ const AddService = () => {
                                     )}
                                 </div>
 
-                                {/* Category */}
                                 <div className="w-full space-y-2">
                                     <Label htmlFor="category" className="text-slate-700 font-medium flex items-center gap-2 text-sm">
                                         <FiTag className="w-4 h-4" />
@@ -231,7 +224,6 @@ const AddService = () => {
                                 </div>
                             </div>
 
-                            {/* Description */}
                             <div className="space-y-2">
                                 <Label htmlFor="description" className="text-slate-700 font-medium flex items-center gap-2 text-sm">
                                     <FiFileText className="w-4 h-4" />
@@ -255,7 +247,6 @@ const AddService = () => {
                                 )}
                             </div>
 
-                            {/* Submit Button */}
                             <div className="pt-2">
                                 <Button
                                     type="submit"

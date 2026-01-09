@@ -5,22 +5,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Lock, Mail } from "lucide-react"
-import { ADMIN_LOGIN_URL } from "@/assets/api"
+import { ADMIN_LOGIN_URL } from "@/resources/api"
+
+
+import { useContext } from "react"
+import { AdminContext } from "@/AdminContext"
 
 const Admin = () => {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm()
+    const { setToken } = useContext(AdminContext)
 
     const handleAdminLogin = async (data) => {
         try {
             const response = await axios.post(ADMIN_LOGIN_URL, data)
             if (response.data.status) {
-                localStorage.setItem("adminToken", response.data.token)
+                const token = response.data.token
+                setToken(token)
+                localStorage.setItem("adminToken", token)
 
                 toast.success(response.data.message || "Admin Login Successfully")
-                setTimeout(() => {
-                    const token = response.data.token
-                    window.location.href = `https://equip-revive-admin.vercel.app?token=${token}`
-                }, 1000)
             } else {
                 toast.error(response.data.message || "You are not authorized")
             }
@@ -30,10 +33,10 @@ const Admin = () => {
         }
     }
 
-    return (
-        <div className="flex min-h-screen items-center justify-center px-3 sm:px-6 bg-gray-50/50 dark:bg-gray-900">
+   return (
+        <div className="flex min-h-screen items-center justify-center px-3 sm:px-6 bg-black">
             {/* background */}
-            <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)] dark:bg-black dark:[background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]" />
+            <div className="absolute inset-0 -z-10 h-full w-full bg-white " />
 
             <Card className="
                 w-[90%]
@@ -44,11 +47,11 @@ const Admin = () => {
                 shadow-2xl
                 backdrop-blur-sm
                 border-0
-                bg-white/80
-                dark:bg-gray-950/80
+                bg-white/50
+              
             ">
                 <CardHeader className="space-y-1 text-center">
-                    <CardTitle className="text-2xl sm:text-3xl font-bold tracking-tight">
+                    <CardTitle className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
                         Admin Portal
                     </CardTitle>
                     <CardDescription className="text-sm sm:text-base">
@@ -97,7 +100,7 @@ const Admin = () => {
                         {/* Button */}
                         <Button
                             type="submit"
-                            className="w-full h-11 text-base font-medium shadow-md transition-all hover:scale-[1.02]"
+                            className="w-full h-11 text-base bg-black text-white font-medium shadow-md transition-all hover:scale-[1.02]"
                             disabled={isSubmitting}
                         >
                             {isSubmitting ? "Authenticating..." : "Sign In to Dashboard"}
