@@ -11,7 +11,6 @@ import Signup from '@/pages/auth/Signup'
 import Profile from '@/pages/Profile';
 import SmoothScroll from '@/components/SmoothScroll';
 import MyBookings from '@/pages/MyBookings';
-import Admin from '@/pages/auth/Admin';
 import ScrollToTop from '@/components/ScrollToTop';
 import { Routes, Route } from 'react-router-dom'
 
@@ -31,7 +30,6 @@ const Router = () => {
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/my-bookings" element={<MyBookings />} />
-                        <Route path="/admin" element={<Admin />} />
                     </Routes>
                 </GoogleOAuthProvider>
             </SmoothScroll>
