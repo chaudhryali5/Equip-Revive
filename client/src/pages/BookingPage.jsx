@@ -38,7 +38,7 @@ const BookingPage = () => {
             const response = await axios.post(PLACE_ORDER_URL, { ...data, serviceId: id }, { headers: { token } })
             if (response.data.status) {
                 toast.success(response.data.message || "Booking placed successfully!")
-                navigate('/my-bookings') // Or wherever appropriate
+                navigate('/my-bookings')
             } else {
                 console.log(response.data)
                 toast.error(response.data.message)

@@ -9,8 +9,11 @@ import { Mail, Lock, ArrowRight } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { LOGIN_URL, GOOGLE_AUTH_URL } from '@/assets/api';
+import { StoreContext } from '@/storeContext';
+import { useContext } from 'react';
 
 const Login = () => {
+    const { setToken } = useContext(StoreContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -21,6 +24,7 @@ const Login = () => {
             const response = await axios.post(LOGIN_URL, data);
             if (response.data.status === true) {
                 localStorage.setItem("userToken", response.data.token);
+                setToken(response.data.token);
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 toast.success(response.data.message || "Welcome back!");
                 reset();
@@ -44,6 +48,7 @@ const Login = () => {
             .then(res => {
                 if (res.data.status === true) {
                     localStorage.setItem("userToken", res.data.token);
+                    setToken(res.data.token);
                     if (res.data.user) {
                         localStorage.setItem("user", JSON.stringify(res.data.user));
                     }

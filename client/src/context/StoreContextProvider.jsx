@@ -22,14 +22,14 @@ const StoreContextProvider = ({ children }) => {
 
 
     useEffect(() => {
-         fetchServices()
+        fetchServices()
         if (localStorage.getItem("userToken")) {
             setToken(localStorage.getItem("userToken"))
         }
     }, [])
 
     return (
-        <StoreContext.Provider value={{ service, token }}>
+        <StoreContext.Provider value={{ service, token, setToken }}>
             {children}
         </StoreContext.Provider>
     )

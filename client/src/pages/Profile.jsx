@@ -8,8 +8,11 @@ import { Button } from '@/components/ui/button';
 import { MdVerified, MdEmail, MdPerson, MdLogout, MdOutlineShield, MdGppBad } from 'react-icons/md';
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
+import { StoreContext } from '@/storeContext';
+import { useContext } from 'react';
 
 const Profile = () => {
+    const { setToken } = useContext(StoreContext);
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
@@ -34,6 +37,7 @@ const Profile = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("userToken");
+        setToken(null);
         localStorage.removeItem("user");
         // localStorage.removeItem("adminToken");
         // toast.success("Logged out successfully");

@@ -8,8 +8,11 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { REGISTER_URL } from '@/assets/api';
+import { StoreContext } from '@/storeContext';
+import { useContext } from 'react';
 
 const Signup = () => {
+    const { setToken } = useContext(StoreContext);
     const {
         register,
         handleSubmit,
@@ -33,6 +36,7 @@ const Signup = () => {
 
             if (response.data.status) {
                 localStorage.setItem('userToken', response.data.token);
+                setToken(response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
                 toast.success(response.data.message || 'Account created successfully!');
                 reset();
