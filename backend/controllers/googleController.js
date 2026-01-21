@@ -9,7 +9,7 @@ export const googleLogin = async (req, res) => {
         const { code } = req.body;
         const googleRes = await oauth2client.getToken(code);
         oauth2client.setCredentials(googleRes.tokens);
-        const userRes = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`)
+        const userRes = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?`)
         const { name, email, picture } = userRes.data;
         let user = await googleUser.findOne({ email });
 

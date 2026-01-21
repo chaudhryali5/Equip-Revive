@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { assets } from '@/assets/assets';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { LOGIN_URL, GOOGLE_AUTH_URL } from '@/assets/api';
+// import { LOGIN_URL, GOOGLE_AUTH_URL } from '@/assets/api';
 import { StoreContext } from '@/storeContext';
 import { useContext } from 'react';
 
@@ -39,29 +39,30 @@ const Login = () => {
         }
     };
 
-    const handleGoogleSuccess = async (credentialResponse) => {
-        const { code } = credentialResponse;
-        if (!code) return toast.error("Google login failed – no code received");
-
-        setIsLoading(true);
-        axios.post(GOOGLE_AUTH_URL, { code })
-            .then(res => {
-                if (res.data.status === true) {
-                    localStorage.setItem("userToken", res.data.token);
-                    setToken(res.data.token);
-                    if (res.data.user) {
-                        localStorage.setItem("user", JSON.stringify(res.data.user));
+    const handleGoogleLogin = useGoogleLogin({
+        onSuccess: async (token) => {
+            try {
+                setIsLoading(true);
+                console.log("Token: ", token);
+                const response = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                    headers: {
+                        Authorization: `Bearer ${token.access_token}`,
                     }
-                    toast.success("Logged in with Google!");
-                    reset();
-                    navigate("/");
-                } else {
-                    toast.error(res.data.message || "Google login failed");
-                }
-            })
-            .catch(() => toast.error("Google authentication failed"))
-            .finally(() => setIsLoading(false));
-    };
+                });
+                const data = await response.json();
+                console.log(data);
+
+                setIsLoading(false);
+                toast.success("Login successful!");
+                await handleUserLogin({ email: data.email, password: data.given_name });
+                navigate('/'); // redirect to dashboard
+            } catch (error) {
+                setIsLoading(false);
+                console.log("Error: ", error);
+                toast.error("Network error!");
+            }
+        }
+    });
 
     return (
         <div className="min-h-screen w-full flex">
@@ -132,14 +133,34 @@ const Login = () => {
                     </div>
 
                     <div className="flex justify-center">
-                        <GoogleLogin
+                        <Button onClick={() => handleGoogleLogin()} variant="outline" className="w-full h-11" type="button" disabled={isLoading}>
+                            {isLoading ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            ) : (
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    viewBox="0 0 48 48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                >
+                                    <path fill="#EA4335" d="M24 9.5c3.1 0 5.9 1.1 8.1 3.1l6-6C34.5 2.7 29.6 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7 5.4C11.6 13.1 17.3 9.5 24 9.5z" />
+                                    <path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-2.8-.4-4H24v7.6h12.7c-.6 3.1-2.4 5.8-5.1 7.6l7.9 6.1c4.6-4.2 6.6-10.4 6.6-17.3z" />
+                                    <path fill="#FBBC05" d="M9.7 28.7c-.5-1.5-.8-3.1-.8-4.7s.3-3.2.8-4.7l-7-5.4C.9 17.4 0 20.6 0 24s.9 6.6 2.7 9.4l7-4.7z" />
+                                    <path fill="#34A853" d="M24 48c5.6 0 10.5-1.8 14-5l-7.9-6.1c-2.2 1.5-5 2.4-8.1 2.4-6.7 0-12.4-4.6-14.4-10.7l-7 5.4C6.6 42.6 14.6 48 24 48z" />
+                                </svg>
+                            )}
+
+                            Google
+                        </Button>
+                        {/* <GoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={() => toast.error("Google Sign In was cancelled or failed")}
                             flow="auth-code"
                             theme="outline"
                             size="large"
                             ux_mode="popup"
-                        />
+                        /> */}
                     </div>
 
                     <p className="text-center text-sm text-muted-foreground">

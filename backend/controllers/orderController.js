@@ -85,7 +85,7 @@ export const updateStatus = async (req, res) => {
         if (!order) {
             return res.send({ status: false, message: "status not updated!" })
         }
-        res.send({ status: true, message: "nooking status updated successfully!" })
+        res.send({ status: true, message: "booking status updated successfully!" })
     } catch (error) {
         console.log(error);
         res.send({ status: false, message: "something went wrong!" })

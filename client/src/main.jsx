@@ -7,11 +7,10 @@ import StoreContextProvider from './context/StoreContextProvider'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
 createRoot(document.getElementById('root')).render(
-  <GoogleOAuthProvider clientId={`${import.meta.env.VITE_GOOGLE_CLIENT_ID}`}>
+
     <StoreContextProvider>
-      <StrictMode>
+        <GoogleOAuthProvider clientId="225983323866-s9tpvo68ddaodjtdce9urkh02mb24q9n.apps.googleusercontent.com">
         <Toaster />
         <Routes />
-      </StrictMode>
-    </StoreContextProvider>
-  </GoogleOAuthProvider>)
+        </GoogleOAuthProvider>
+    </StoreContextProvider>)
