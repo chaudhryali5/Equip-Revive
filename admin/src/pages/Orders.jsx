@@ -48,7 +48,8 @@ const Orders = () => {
         }
     }
 
-    const updateStatus = async (orderId, newStatus) => {
+    const updateStatus = async (e, orderId, newStatus) => {
+        e.preventDefault()
         try {
             const response = await axios.post(UPDATE_STATUS.replace(':id', orderId), {
                 status: newStatus
